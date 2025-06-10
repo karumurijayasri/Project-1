@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Color Picker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      text-align: center;
+      padding: 20px;
+    }
+    img {
+      max-width: 90%;
+      height: auto;
+      cursor: crosshair;
+      border: 2px solid #ccc;
+    }
+    .color-info {
+      margin-top: 20px;
+    }
+    .color-box {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      border: 1px solid #000;
+      vertical-align: middle;
+    }
+    input[type="file"] {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Image Color Picker</h1>
+  <input type="file" id="upload" accept="image/*" />
+  <br />
+  <canvas id="canvas" style="display:none;"></canvas>
+  <img id="image" alt="Upload an image to pick colors" />
+
+  <div class="color-info">
+    <div class="color-box" id="colorBox"></div>
+    <p id="colorCode">Click on the image to get the color</p>
+  </div>
+
+  <script>
+    const upload = document.getElementById('upload');
+    const image = document.getElementById('image');
+    const canvas = document.getElementById('canvas');
+    const colorBox = document.getElementById('colorBox');
+    const colorCode = document.getElementById('colorCode');
+    const ctx = canvas.getContext('2d');
+
+    upload.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          image.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    image.addEventListener('click', (event) => {
+      const img = event.target;
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0, img.width, img.height);
+
+      const rect = img.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      const pixel = ctx.getImageData(x, y, 1, 1).data;
+      const rgb = `rgb(${pixel[0]}, ${pixel[1]}, ${pixel[2]})`;
+      colorBox.style.backgroundColor = rgb;
+      colorCode.textContent = rgb;
+    });
+  </script>
+</body>
+</html>
