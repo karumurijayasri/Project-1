@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CVD - Cabin Video Display</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background: #0e1a2b;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    header {
+      background: #001f3f;
+      padding: 20px;
+    }
+
+    .logo {
+      width: 100px;
+    }
+
+    section {
+      margin: 20px;
+    }
+
+    .carousel {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .carousel img {
+      width: 150px;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+
+    .carousel img:hover {
+      transform: scale(1.1);
+    }
+
+    footer {
+      background: #001f3f;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Airplane_icon.svg/1024px-Airplane_icon.svg.png" alt="Airline Logo" class="logo"/>
+    <h1>Cabin Video Display</h1>
+  </header>
+
+  <section id="flight-info">
+    <h2>Flight Information</h2>
+    <p id="altitude">Altitude: 35,000 ft</p>
+    <p id="speed">Speed: 900 km/h</p>
+    <p>Destination: New York (JFK)</p>
+  </section>
+
+  <section id="video">
+    <h2>Safety Instructions</h2>
+    <video controls autoplay muted width="600">
+      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"/>
+      Your browser does not support the video tag.
+    </video>
+  </section>
+
+  <section id="entertainment">
+    <h2>Now Showing</h2>
+    <div class="carousel">
+      <img src="https://m.media-amazon.com/images/I/51NiGlapXlL._AC_.jpg" alt="Movie 1"/>
+      <img src="https://m.media-amazon.com/images/I/71niXI3lxlL._AC_SY679_.jpg" alt="Movie 2"/>
+      <img src="https://m.media-amazon.com/images/I/81vpsIs58WL._AC_SY679_.jpg" alt="Movie 3"/>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 SkyHigh Airlines</p>
+  </footer>
+
+  <script>
+    // Simulate live updates
+    setInterval(() => {
+      const altitude = 30000 + Math.floor(Math.random() * 10000);
+      const speed = 800 + Math.floor(Math.random() * 200);
+
+      document.getElementById("altitude").innerText = `Altitude: ${altitude} ft`;
+      document.getElementById("speed").innerText = `Speed: ${speed} km/h`;
+    }, 5000);
+  </script>
+</body>
+</html>
